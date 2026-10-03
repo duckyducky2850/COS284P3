@@ -1,13 +1,5 @@
-# COS284 Practical 3 - Functions and Structs
-#
-# C++ analogy: this is the usual compile -> link pipeline.
-#   nasm  = the "compile" step, each .asm becomes a .o (like g++ -c)
-#   gcc   = the "link" step, glues main.o + task*.o into ./library
-# The pattern rules below are the same idea as writing one rule per
-# translation unit, just generalised with % (a wildcard).
-
-NASM      := nasm
-NASMFLAGS := -f elf64 -g -F dwarf
+YASM      := yasm
+YASMFLAGS := -f elf64 -g dwarf2
 
 CC        := gcc
 CFLAGS    := -Wall -Wextra -g -no-pie
@@ -31,7 +23,7 @@ $(TARGET): main.o $(ASM_OBJS)
 
 # "compile" step for assembly
 %.o: %.asm
-	$(NASM) $(NASMFLAGS) $< -o $@
+	$(YASM) $(YASMFLAGS) $< -o $@
 
 run: $(TARGET)
 	./$(TARGET)
