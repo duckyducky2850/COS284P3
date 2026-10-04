@@ -9,17 +9,23 @@
 ;Return rax = ptr to the best book
 ;
 
-global count_above
+global best_book
 section .text
-count_above:
-    xor rax, rax ; count = 0   (threshold arrives in xmm0)
+best_book:
+    mov rax, rdi ; best = &books[0]
+    movsd xmm0, [rdi + 8]  ; bestRating = books[0].rating
+    add rdi, 24
+    dec rsi
+    jz .done; n == 1: nothing left to check
 .loop:
-    movsd xmm1, [rdi + 8] ; rating
-    comisd xmm1, xmm0 ; compare rating with threshold
-    jbe .skip ; not strictly greater -> skip
-    inc rax
+    movsd xmm1, [rdi + 8]
+    comisd xmm1, xmm0
+    jbe .skip ; keep old best unless STRICTLY greater
+    mov rax, rdi ; best = &books[i]
+    movsd xmm0, xmm1
 .skip:
     add rdi, 24
     dec rsi
     jnz .loop
+.done:
     ret

@@ -31,7 +31,7 @@ total_pages:
         movsxd rdx, dword [rdi + 16] ;get pages, convert int to long
         add rax, rdx ;total += pages
         add rdi, 24 ;each book is 24 bits apart, so "go to next book"
-    inc rax ;i++
+    inc rcx ;i++
     jmp .for
 .endfor:
     ret
