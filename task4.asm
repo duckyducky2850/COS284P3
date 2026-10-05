@@ -1,7 +1,7 @@
 ;Book* best_book(Book* books, long n){
 ;   Book* best = &books[0];
 ;   for (long i = 1; i < n; ++i)
-;       if (books[i].rating > best->rating)   // strictly greater!
+;       if (books[i].rating > best->rating)   // strictly greater!!
 ;           best = &books[i];
 ;   return best;
 ;}
@@ -20,7 +20,7 @@ best_book:
 .loop:
     movsd xmm1, [rdi + 8]
     comisd xmm1, xmm0
-    jbe .skip ; keep old best unless STRICTLY greater
+    jbe .skip ; keep old best unless strictly greater
     mov rax, rdi ; best = &books[i]
     movsd xmm0, xmm1
 .skip:

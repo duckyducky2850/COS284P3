@@ -10,7 +10,8 @@ global average_rating
 section .text
 average_rating:
     pxor xmm0, xmm0 ; sum = 0.0
-    cvtsi2sd xmm1, rsi ; (double)n, converted BEFORE the loop uses rsi as a counter
+    cvtsi2sd xmm1, rsi ; (double)n, converted before loop uses rsi as a counter
+    ; needs n to be double to get sum / n, save copy in xmm1
 .loop:
     addsd xmm0, [rdi + 8] ; sum += books[i].rating
     add rdi, 24

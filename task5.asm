@@ -18,14 +18,14 @@
 global weighted_rating
 section .text
 weighted_rating:
-    pxor xmm0, xmm0            ; numerator   = 0.0
-    pxor xmm1, xmm1            ; denominator = 0.0
+    pxor xmm0, xmm0  ; numerator = 0.0
+    pxor xmm1, xmm1 ; denominator = 0.0
 .loop:
-    cvtsi2sd xmm2, dword [rdi + 16]   ; (double)pages
-    addsd xmm1, xmm2                  ; den += pages
-    movsd xmm3, [rdi + 8]             ; rating
-    mulsd xmm3, xmm2                  ; rating * pages
-    addsd xmm0, xmm3                  ; num += rating * pages
+    cvtsi2sd xmm2, dword [rdi + 16] ; (double)pages
+    addsd xmm1, xmm2  ; den += pages
+    movsd xmm3, [rdi + 8] ; rating
+    mulsd xmm3, xmm2 ; rating * pages
+    addsd xmm0, xmm3 ; num += rating * pages
     add rdi, 24
     dec rsi
     jnz .loop
